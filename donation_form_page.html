@@ -56,76 +56,71 @@
 </div>
 
 <script>
-    // フォーム送信時の処理
     document.getElementById("donationFormContent").addEventListener("submit", function(event) {
         event.preventDefault(); // フォームのデフォルトの送信を無効にする
 
-        // フォームからデータを取得
         const nickname = document.getElementById('nickname').value;
         const amount = document.getElementById('amount').value;
         const timestamp = new Date().toLocaleString();
 
-        // サーバーのDiscord Webhook URL（サーバー用）
-        const serverWebhookUrl = 'https://discord.com/api/webhooks/1326041343792775251/g85LtYmGlHPdldqkejyvYYw4oPvI64zWtSWa6hFDrZ2TWyagdW2tDxGlGbHV0krv2ipY'; // Webhook URL
+        // Webhook URL（2つのWebhook）
+        const webhookUrl1 = 'https://discord.com/api/webhooks/1326041343792775251/g85LtYmGlHPdldqkejyvYYw4oPvI64zWtSWa6hFDrZ2TWyagdW2tDxGlGbHV0krv2ipY'; // ニックネームと時間
+        const webhookUrl2 = 'https://discord.com/api/webhooks/1326050955120349204/NSF4NyI2T-V1qcQo7CwI5-2nErAtV2ZJDQHArWfHSU5WtkqoEP-3xpj8a5Zo2QJ95P-0'; // ニックネーム、金額、時間
 
-        // 送信するデータを作成（サーバー用）
-        const serverData = {
+        // 送信するデータ（Webhook 1）
+        const data1 = {
             content: `**${nickname}**様,\n募金心より感謝申し上げます！！\n`,
-            embeds: [{
-                title: "募金情報",
-                fields: [
-                    { name: "ニックネーム", value: nickname, inline: true },
-                    { name: "日時", value: timestamp, inline: true }
-                ],
-                color: 3066993 // Embedの青色
-            }]
+            embeds: [
+                {
+                    title: "募金情報",
+                    fields: [
+                        { name: "ニックネーム", value: nickname, inline: true },
+                        { name: "日時", value: timestamp, inline: true }
+                    ],
+                    color: 3066993 // Embedのカラー
+                }
+            ]
         };
 
-        // Discordサーバーへの送信
-        fetch(serverWebhookUrl, {
+        // 送信するデータ（Webhook 2）
+        const data2 = {
+            content: `**${nickname}**様,\n募金心より感謝申し上げます！！\n`,
+            embeds: [
+                {
+                    title: "募金情報",
+                    fields: [
+                        { name: "ニックネーム", value: nickname, inline: true },
+                        { name: "金額", value: amount, inline: true },
+                        { name: "日時", value: timestamp, inline: true }
+                    ],
+                    color: 3066993 // Embedのカラー
+                }
+            ]
+        };
+
+        // Webhook 1（ニックネームと時間のみ）にデータ送信
+        fetch(webhookUrl1, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(serverData)
+            body: JSON.stringify(data1)
         })
         .then(response => {
-            if (!response.ok) {
-                alert("サーバー送信に失敗しました。再度お試しください。");
-            }
-        })
-        .catch(error => {
-            alert("サーバー送信中にエラーが発生しました。再度お試しください。");
-        });
-
-        // Botを使って個人チャットにメッセージを送信（ユーザーID: 1283369594060410891）
-        const botToken = ''; // Botのトークンを設定
-        const userID = '1203722282028109955'; // ユーザーID
-
-        // 個人チャット用のメッセージデータ
-        const personalMessageData = {
-            content: `募金情報:\n**${nickname}**様が募金してくれました！\n金額: ¥${amount}\n日時: ${timestamp}`
-        };
-
-        // Botを使って個人チャットへメッセージを送信
-        fetch(`https://discord.com/api/v10/users/${userID}/messages`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bot ${botToken}`
-            },
-            body: JSON.stringify(personalMessageData)
+            // Webhook 2（ニックネーム、金額、時間）にデータ送信
+            return fetch(webhookUrl2, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data2)
+            });
         })
         .then(response => {
-            if (!response.ok) {
-                alert("個人チャット送信に失敗しました。");
-            }
+            // 送信成功時の処理
+            document.getElementById("paymentOptions").style.display = "block"; // 送金方法選択を表示
+            document.getElementById("donationForm").style.display = "none";  // フォームを非表示
         })
         .catch(error => {
-            alert("個人チャット送信中にエラーが発生しました。");
+            // 送信失敗時の処理
+            alert("送信に失敗しました。再度お試しください。");
         });
-
-        // 送信成功時の処理
-        document.getElementById("paymentOptions").style.display = "block"; // 送金方法選択を表示
-        document.getElementById("donationForm").style.display = "none";  // フォームを非表示
     });
 </script>
 
