@@ -57,10 +57,33 @@
 
 <script>
     // フォーム送信時の処理
-    document.getElementById("donationFormContent").addEventListener("submit", function() {
-        // 送金方法の選択肢を表示
-        document.getElementById("paymentOptions").style.display = "block";
-        document.getElementById("donationForm").style.display = "none"; // フォームを非表示
+    document.getElementById("donationFormContent").addEventListener("submit", function(event) {
+        event.preventDefault(); // フォームのデフォルトの送信を無効にする
+
+        // Formspreeに送信するための設定
+        const formData = new FormData(event.target);
+
+        // Formspreeに非同期で送信
+        fetch(event.target.action, {
+            method: "POST",
+            body: formData,
+            headers: {
+                "Accept": "application/json"
+            }
+        }).then(response => {
+            if (response.ok) {
+                // 送信成功時の処理
+                // 例えば、フォームを非表示にして、送金方法選択画面を表示するなど
+                document.getElementById("paymentOptions").style.display = "block";
+                document.getElementById("donationForm").style.display = "none"; // フォームを非表示
+            } else {
+                // 送信失敗時の処理
+                alert("送信に失敗しました。再度お試しください。");
+            }
+        }).catch(error => {
+            // ネットワークエラー時の処理
+            alert("送信中にエラーが発生しました。再度お試しください。");
+        });
     });
 </script>
 
