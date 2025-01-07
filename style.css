@@ -208,6 +208,7 @@ header {
     .footer {
         font-size: 10px; /* フォントサイズを小さく */
         padding: 10px; /* 余白を調整 */
+        z-index: 9999;
     }
 
     /* 画像サイズの調整 */
