@@ -544,15 +544,21 @@ function toggleMenu() {
     });
 
     function showPage(pageId) {
-    // 他のページを非表示にする処理（例えば、すべてのページを非表示にする）
-    document.querySelectorAll('.page-content').forEach(function(page) {
-        page.style.display = 'none';
+    // 全セクションを非表示に
+    document.querySelectorAll('.page-content').forEach(section => {
+        section.classList.remove('active');
     });
 
-    // 対象のページを表示する
-    var targetPage = document.getElementById(pageId);
+    // 対象のページを表示
+    const targetPage = document.getElementById(pageId);
     if (targetPage) {
-        targetPage.style.display = 'block';
+        targetPage.classList.add('active');
+    }
+
+    // ハンバーガーメニューを閉じる
+    const menu = document.getElementById('menu');
+    if (menu.classList.contains('show')) {
+        menu.classList.remove('show');
     }
 }
 
