@@ -165,8 +165,7 @@ header {
     /* コンテンツ幅の調整 */
     .content,
     .info-box,
-    .description-box,
-    .feature-list {
+    .description-box{
         width: 90%; /* 横幅を90%に縮小 */
         margin: 0 auto 20px; /* 左右中央揃え */
     }
