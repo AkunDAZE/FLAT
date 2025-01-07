@@ -57,9 +57,7 @@
 
 <script>
     // フォーム送信時の処理
-    document.getElementById("donationFormContent").addEventListener("submit", function(event) {
-        event.preventDefault(); // フォームのデフォルトの送信を無効にする
-
+    document.getElementById("donationFormContent").addEventListener("submit", function() {
         // 送金方法の選択肢を表示
         document.getElementById("paymentOptions").style.display = "block";
         document.getElementById("donationForm").style.display = "none"; // フォームを非表示
