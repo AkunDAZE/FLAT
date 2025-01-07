@@ -282,6 +282,27 @@ header {
     .menu a:hover {
         background-color: #575757;
     }
+
+    /* 特徴リストのスタイル */
+    .feature-list {
+        background-color: rgba(255, 255, 255, 0.9); /* 背景を白に */
+        padding: 15px; /* 内側の余白を少し広げる */
+        margin: 0; /* 画面端まで広げるために余白をリセット */
+        border-radius: 0; /* スマホ版では角を丸めない */
+        width: 100%; /* 画面いっぱいに広げる */
+        box-shadow: none; /* 影を削除 */
+        text-align: left; /* 左寄せで箇条書き風 */
+        font-size: 16px; /* フォントサイズを調整 */
+    }
+
+    /* feature-list 内の箇条書きスタイル */
+    .feature-list li {
+        list-style-type: disc; /* 箇条書き記号を追加 */
+        margin-left: 20px; /* 左に余白を追加 */
+        margin-bottom: 10px; /* 下に余白を追加 */
+        line-height: 1.6; /* 行間を広げる */
+        color: #333; /* テキストの色を濃いグレーに */
+    }
 }
 
 /* フッターのスタイル */
