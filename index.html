@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>整地鯖</title>
     <link rel="stylesheet" href="style.css">
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById('menu');
+            menu.classList.toggle('show');
+        }
+    </script>
 </head>
 <body>
     <header>
@@ -27,6 +33,13 @@
             <a href="#donation" onclick="showPage('donation')">募金</a>
         </nav>
     </header>
+    
+    <script>
+        function showPage(pageId) {
+            // ページの切り替え機能
+            alert('ページを切り替えます: ' + pageId);
+        }
+    </script>
 
     <div class="content">
         <!-- 鯖主の枠 -->
@@ -465,11 +478,11 @@
 </div>
 </section>
 
-
+    <div>
         <!-- フッター -->
         <footer class="footer">
             Copyright © 整地鯖運営, Inc. ALL RIGHTS RESERVED.
-            </footer>
+        </footer>
     </div>
 
 
@@ -500,11 +513,10 @@ window.addEventListener('scroll', () => {
 // 初期状態でもスクロール位置を考慮して、ページ読み込み時にタイトル位置の判定を実行
 window.dispatchEvent(new Event('scroll'));
 
-        // ハンバーガーメニューのトグル
-    function toggleMenu() {
-    const menu = document.getElementById('menu');
-    menu.classList.toggle('show');
-}
+function toggleMenu() {
+        var menu = document.getElementById('menu');
+        menu.classList.toggle('show');
+    }
 
         // ページの表示を切り替える
         function showPage(page) {
