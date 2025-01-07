@@ -488,126 +488,113 @@
 
 
     <script>
-
-
         // スクロールイベントの追加
-window.addEventListener('scroll', () => {
-    document.querySelectorAll('.title-with-underline').forEach((element) => {
-        // タイトルの位置とスクロール位置をチェック
-        const elementTop = element.offsetTop;
-        const elementBottom = elementTop + element.offsetHeight;
-        const windowTop = window.scrollY;
-        const windowBottom = window.scrollY + window.innerHeight;
-
-        // タイトルが表示範囲に入ったかどうかをチェック
-        if (windowBottom > elementTop && windowTop < elementBottom) {
-            element.classList.add('active');  // 照準が合ったとき
-            element.classList.remove('active-out'); // 戻るアニメーションを無効にする
-        } else {
-            element.classList.remove('active');  // 照準が外れたとき
-            element.classList.add('active-out'); // 戻るアニメーション
+        window.addEventListener('scroll', () => {
+            document.querySelectorAll('.title-with-underline').forEach((element) => {
+                // タイトルの位置とスクロール位置をチェック
+                const elementTop = element.offsetTop;
+                const elementBottom = elementTop + element.offsetHeight;
+                const windowTop = window.scrollY;
+                const windowBottom = window.scrollY + window.innerHeight;
+    
+                // タイトルが表示範囲に入ったかどうかをチェック
+                if (windowBottom > elementTop && windowTop < elementBottom) {
+                    element.classList.add('active'); // 照準が合ったとき
+                    element.classList.remove('active-out'); // 戻るアニメーションを無効にする
+                } else {
+                    element.classList.remove('active'); // 照準が外れたとき
+                    element.classList.add('active-out'); // 戻るアニメーション
+                }
+            });
+        });
+    
+        // 初期状態でもスクロール位置を考慮して、ページ読み込み時にタイトル位置の判定を実行
+        window.dispatchEvent(new Event('scroll'));
+    
+        // ハンバーガーメニューの開閉
+        function toggleMenu() {
+            var menu = document.getElementById('menu');
+            menu.classList.toggle('show');
         }
-    });
-});
-
-// 初期状態でもスクロール位置を考慮して、ページ読み込み時にタイトル位置の判定を実行
-window.dispatchEvent(new Event('scroll'));
-
-function toggleMenu() {
-        var menu = document.getElementById('menu');
-        menu.classList.toggle('show');
-    }
-
+    
         // ページの表示を切り替える
-        function showPage(page) {
-            // すべてのセクションを非表示に
-            const sections = document.querySelectorAll('.page-content');
-            sections.forEach(section => {
+        function showPage(pageId) {
+            // 全セクションを非表示に
+            document.querySelectorAll('.page-content').forEach(section => {
                 section.style.display = 'none';
             });
-
-            // 指定したページだけ表示
-            const activeSection = document.getElementById(page);
-            if (activeSection) {
-                activeSection.style.display = 'block';
+    
+            // 対象のページを表示
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.style.display = 'block';
+            }
+    
+            // ハンバーガーメニューを閉じる
+            const menu = document.getElementById('menu');
+            if (menu.classList.contains('show')) {
+                menu.classList.remove('show');
             }
         }
-
-            // メニューがクリックされた時の処理
-    document.querySelectorAll('.menu a').forEach(item => {
-        item.addEventListener('click', () => {
-            // すべてのメニュー項目からactiveクラスを削除
-            document.querySelectorAll('.menu a').forEach(link => link.classList.remove('active'));
-            // クリックされた項目にactiveクラスを追加
-            item.classList.add('active');
+    
+        // メニューがクリックされた時の処理
+        document.querySelectorAll('.menu a').forEach(item => {
+            item.addEventListener('click', () => {
+                // すべてのメニュー項目からactiveクラスを削除
+                document.querySelectorAll('.menu a').forEach(link => link.classList.remove('active'));
+                // クリックされた項目にactiveクラスを追加
+                item.classList.add('active');
+            });
         });
-    });
-
-    function showPage(pageId) {
-    // 全セクションを非表示に
-    document.querySelectorAll('.page-content').forEach(section => {
-        section.classList.remove('active');
-    });
-
-    // 対象のページを表示
-    const targetPage = document.getElementById(pageId);
-    if (targetPage) {
-        targetPage.classList.add('active');
-    }
-
-    // ハンバーガーメニューを閉じる
-    const menu = document.getElementById('menu');
-    if (menu.classList.contains('show')) {
-        menu.classList.remove('show');
-    }
-}
-
-document.getElementById('donateBtn').addEventListener('click', function() {
-    // 募金フォームを表示
-    document.getElementById('donationForm').style.display = 'block';
-    document.getElementById('donateBtn').style.display = 'none';
-    updateProgressBar(1); // 進行度バーを1に更新
-});
-
-document.getElementById('donationFormContent').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const nickname = document.getElementById('nickname').value;
-    const amount = document.getElementById('amount').value;
-
-    // 入力内容をテキストファイルに記録
-    const donationDetails = `名前: ${nickname}, 金額: ${amount}, 日時: ${new Date().toLocaleString()}\n`;
-    const blob = new Blob([donationDetails], { type: 'text/plain' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'send_money.txt';
-    a.click();
-
-    // 送金方法選択を表示
-    document.getElementById('paymentOptions').style.display = 'block';
-    updateProgressBar(2); // 進行度バーを2に更新
-});
-
-document.getElementById('qrPayment').addEventListener('click', function() {
-    document.getElementById('qrPage').style.display = 'block';
-    document.getElementById('paymentOptions').style.display = 'none';
-    updateProgressBar(3); // 進行度バーを3に更新
-});
-
-document.getElementById('linkPayment').addEventListener('click', function() {
-    document.getElementById('linkPage').style.display = 'block';
-    document.getElementById('paymentOptions').style.display = 'none';
-    updateProgressBar(3); // 進行度バーを3に更新
-});
-
-document.getElementById('endDonation').addEventListener('click', function() {
-    // 終了後、ホームに戻る
-    window.location.href = 'home.html';
-});
-
-function updateProgressBar(step) {
-    document.getElementById('progressBar').value = step;
-}
+    
+        // 募金機能関連
+        document.getElementById('donateBtn').addEventListener('click', function () {
+            // 募金フォームを表示
+            document.getElementById('donationForm').style.display = 'block';
+            document.getElementById('donateBtn').style.display = 'none';
+            updateProgressBar(1); // 進行度バーを1に更新
+        });
+    
+        document.getElementById('donationFormContent').addEventListener('submit', function (e) {
+            e.preventDefault();
+    
+            const nickname = document.getElementById('nickname').value;
+            const amount = document.getElementById('amount').value;
+    
+            // 入力内容をテキストファイルに記録
+            const donationDetails = `名前: ${nickname}, 金額: ${amount}, 日時: ${new Date().toLocaleString()}\n`;
+            const blob = new Blob([donationDetails], { type: 'text/plain' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'send_money.txt';
+            a.click();
+    
+            // 送金方法選択を表示
+            document.getElementById('paymentOptions').style.display = 'block';
+            updateProgressBar(2); // 進行度バーを2に更新
+        });
+    
+        document.getElementById('qrPayment').addEventListener('click', function () {
+            document.getElementById('qrPage').style.display = 'block';
+            document.getElementById('paymentOptions').style.display = 'none';
+            updateProgressBar(3); // 進行度バーを3に更新
+        });
+    
+        document.getElementById('linkPayment').addEventListener('click', function () {
+            document.getElementById('linkPage').style.display = 'block';
+            document.getElementById('paymentOptions').style.display = 'none';
+            updateProgressBar(3); // 進行度バーを3に更新
+        });
+    
+        document.getElementById('endDonation').addEventListener('click', function () {
+            // 終了後、ホームに戻る
+            window.location.href = 'home.html';
+        });
+    
+        // 進行度バーを更新する
+        function updateProgressBar(step) {
+            document.getElementById('progressBar').value = step;
+        }
     </script>
 </body>
 </html>
