@@ -241,7 +241,7 @@ header {
     }
 
     .hamburger {
-        display: flex;
+        display: none;
     }
 }
 
@@ -283,6 +283,7 @@ header {
     }
 }
 
+/* フッターのスタイル */
 .footer {
     background-color: #808080; /* グレー背景 */
     color: white; /* 文字色を白に */
@@ -294,7 +295,7 @@ header {
     left: 0; /* 左端に合わせる */
     right: 0; /* 右端に合わせる */
     width: 100%; /* ページの幅全体を占める */
-    z-index: 9999; /* フッターを最前面に */
+    z-index: 9999;
 }
 
 /* 整地鯖についてのタイトルスタイル */
