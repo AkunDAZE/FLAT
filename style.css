@@ -293,15 +293,6 @@ header {
         text-align: left; /* 左寄せで箇条書き風 */
         font-size: 16px; /* フォントサイズを調整 */
     }
-
-    /* feature-list 内の箇条書きスタイル */
-    .feature-list li {
-        list-style-type: disc; /* 箇条書き記号を追加 */
-        margin-left: 20px; /* 左に余白を追加 */
-        margin-bottom: 10px; /* 下に余白を追加 */
-        line-height: 1.6; /* 行間を広げる */
-        color: #333; /* テキストの色を濃いグレーに */
-    }
 }
 
 /* フッターのスタイル */
@@ -772,6 +763,156 @@ header {
 .terms-list-table tr:nth-child(even) {
     background-color: #f9f9f9;
 }
+
+
+
+#rule .terms-content h3 {
+    font-size: 24px;
+    color: #4CAF50;
+    margin-top: 20px;
+    text-align: left;
+}
+
+#rule .terms-content p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 10px 0;
+    text-align: left;
+}
+
+#rule .terms-content ul {
+    margin-left: 20px;
+}
+
+#rule .terms-content ul li {
+    font-size: 16px;
+    line-height: 1.6;
+    list-style-type: disc;
+}
+
+#rule .terms-content ul li::before {
+    content: "• ";
+    color: #4CAF50;
+}
+
+#rule .terms-content h3:first-of-type {
+    margin-top: 0;
+}
+
+#rule .terms-content p:first-of-type {
+    margin-top: 10px;
+}
+
+#rule .terms-content {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+
+/* セクション全体のスタイル */
+#area {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 各項目のスタイル */
+#area .terms-content {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* h2タイトルのスタイル（黒で大きめ） */
+#area .terms-content h2 {
+    font-size: 26px;
+    color: #000;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+}
+
+/* サブタイトル（緑色、h2より小さめ） */
+#area .terms-content p > strong:first-child {
+    font-size: 20px;
+    color: #4CAF50; /* 緑色は最初の<strong>だけに適用 */
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* 本文中の太字（赤色、本文と同じ大きさ） */
+#area .terms-content p strong:not(:first-child),
+#area .terms-content ul li strong {
+    color: #E53935; /* 見やすい赤色 */
+    font-size: 16px;
+    font-weight: bold;
+    display: inline;
+}
+
+/* 段落のスタイル（本文用） */
+#area .terms-content p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #333;
+    margin: 10px 0;
+    text-align: left;
+}
+
+/* リストのスタイル */
+#area .terms-content ul {
+    margin-left: 20px;
+    padding-left: 20px;
+    list-style-type: disc;
+}
+
+#area .terms-content ul li {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* モバイル対応調整 */
+@media (max-width: 768px) {
+    #area {
+        padding: 15px;
+    }
+
+    #area .terms-content h2 {
+        font-size: 22px;
+    }
+
+    #area .terms-content p,
+    #area .terms-content ul li {
+        font-size: 14px;
+    }
+
+    #area .terms-content p > strong:first-child {
+        font-size: 18px;
+    }
+
+    #area .terms-content p strong:not(:first-child),
+    #area .terms-content ul li strong {
+        font-size: 14px;
+    }
+}
+
+
+
+
+
 
 
 
